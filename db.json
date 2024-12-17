@@ -1,0 +1,48 @@
+{
+  "users": [
+    {
+      "id": "e233",
+      "firstName": "Santanu",
+      "lastName": "Maiti",
+      "email": "efwqe1@gamil.com",
+      "username": "asddddd",
+      "password": "123",
+      "confirmPassword": "123",
+      "roles": "admin"
+    },
+    {
+      "id": "3e8c",
+      "firstName": "SantanuZZ",
+      "lastName": "Maiti",
+      "email": "wetw@hjf.com",
+      "username": "sant222",
+      "password": "123",
+      "confirmPassword": "123",
+      "roles": "user"
+    },
+    {
+      "id": "190e",
+      "firstName": "Santanu",
+      "lastName": "1234",
+      "email": "efwqe23@gamil.com",
+      "username": "123Sa",
+      "password": "123",
+      "confirmPassword": "123",
+      "roles": "user"
+    }
+  ],
+  "products": [
+    {
+      "id": "1",
+      "name": "Product 1",
+      "price": 29.99,
+      "image": "link-to-image"
+    },
+    {
+      "id": "2",
+      "name": "Product 2",
+      "price": 39.99,
+      "image": "link-to-image"
+    }
+  ]
+}
