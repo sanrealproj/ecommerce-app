@@ -22,11 +22,11 @@ const Users = () => {
 
   const adminUsers = useSelector((state) => state.users.users) || [];
   const loggedUser = useSelector((state) => state.users.auth) || [];
-  const userAuth = useSelector((state) => state.users.auth);
+  const userAuth = loggedUser.length > 0 && loggedUser[0].roles === "user";
   console.log(loggedUser);
 
   const isAdmin = loggedUser.length > 0 && loggedUser[0].roles === "admin";
-  console.log("isAdmin", isAdmin);
+  console.log(adminUsers, "isAdmin", isAdmin, loggedUser, userAuth);
 
   const [editId, setEditId] = useState(null);
   const dispatch = useDispatch();
@@ -34,13 +34,14 @@ const Users = () => {
   const [usersDisplay, setUsersDisplay] = useState([]);
 
   useEffect(() => {
+    const ifUser = adminUsers.filter((item) => item.email === loggedUser.email);
     const roleUsers =
       loggedUser.length > 0 && loggedUser[0].roles === "admin"
         ? adminUsers
-        : userAuth;
-    setUsersDisplay(roleUsers);
+        : ifUser || [];
+    setUsersDisplay(roleUsers || []);
     console.log(roleUsers);
-  }, [userAuth]);
+  }, [adminUsers, loggedUser]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -222,36 +223,38 @@ const Users = () => {
               </tr>
             </thead>
             <tbody>
-              {usersDisplay.map((user) => (
-                <tr key={user.id}>
-                  <td>#</td>
-                  <td>
-                    {user.firstName}
-                    &nbsp;
-                    {user.lastName}
-                  </td>
-                  <td>{user.email}</td>
-                  <td>{user.roles}</td>
-                  <td>
-                    <Button
-                      variant="primary"
-                      disabled={!isAdmin}
-                      onClick={() => handleEdit(user)}
-                    >
-                      Edit
-                    </Button>
-                  </td>
-                  <td>
-                    <Button
-                      variant="danger"
-                      disabled={!isAdmin}
-                      onClick={() => handleDelete(user.id)}
-                    >
-                      Delete
-                    </Button>
-                  </td>
-                </tr>
-              ))}
+              {usersDisplay &&
+                usersDisplay.length > 0 &&
+                usersDisplay.map((user) => (
+                  <tr key={user.id}>
+                    <td>#</td>
+                    <td>
+                      {user.firstName}
+                      &nbsp;
+                      {user.lastName}
+                    </td>
+                    <td>{user.email}</td>
+                    <td>{user.roles}</td>
+                    <td>
+                      <Button
+                        variant="primary"
+                        // disabled={!isAdmin}
+                        onClick={() => handleEdit(user)}
+                      >
+                        Edit
+                      </Button>
+                    </td>
+                    <td>
+                      <Button
+                        variant="danger"
+                        disabled={!isAdmin}
+                        onClick={() => handleDelete(user.id)}
+                      >
+                        Delete
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </Table>
         )}

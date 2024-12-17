@@ -18,6 +18,7 @@ function App() {
   const loggedUser = JSON.parse(sessionStorage.getItem("loginUser")) || [];
   const authUser = loggedUser.length === 1;
   const userAuth = useSelector((state) => state.users.auth);
+  const adminUsers = useSelector((state) => state.users.users) || [];
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const handleLogin = () => {
     // Logic to set user as authenticated
@@ -30,7 +31,7 @@ function App() {
     } else {
       setIsAuthenticated(false);
     }
-  }, [userAuth]);
+  }, [userAuth, adminUsers]);
 
   const handleLogout = () => {
     sessionStorage.removeItem("loginUser");
