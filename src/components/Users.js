@@ -23,7 +23,7 @@ const Users = () => {
   const adminUsers = useSelector((state) => state.users.users) || [];
   const loggedUser = useSelector((state) => state.users.auth) || [];
   const userAuth = loggedUser.length > 0 && loggedUser[0].roles === "user";
-  console.log(loggedUser);
+  console.log(loggedUser[0].email);
 
   const isAdmin = loggedUser.length > 0 && loggedUser[0].roles === "admin";
   console.log(adminUsers, "isAdmin", isAdmin, loggedUser, userAuth);
@@ -34,14 +34,16 @@ const Users = () => {
   const [usersDisplay, setUsersDisplay] = useState([]);
 
   useEffect(() => {
-    const ifUser = adminUsers.filter((item) => item.email === loggedUser.email);
+    const ifUser = adminUsers.filter(
+      (item) => item.email === loggedUser[0].email
+    );
     const roleUsers =
       loggedUser.length > 0 && loggedUser[0].roles === "admin"
         ? adminUsers
         : ifUser || [];
     setUsersDisplay(roleUsers || []);
-    console.log(roleUsers);
-  }, [adminUsers, loggedUser]);
+    console.log("useEffect##", roleUsers, ifUser);
+  }, [adminUsers, loggedUser, userAuth]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
